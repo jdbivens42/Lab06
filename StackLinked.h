@@ -69,7 +69,7 @@ T* StackLinked<T>::peek()
 {
    T* item = NULL;
    //DO THIS
-   if(sze !== 0)
+   if(sze > 0)
    {
       item = top->getItem();
    }

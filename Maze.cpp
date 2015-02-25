@@ -77,7 +77,13 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
    int row = curr_cell->getRow();
    int col = curr_cell->getCol();
 
-
+	/*cout<< "Col: " << col << endl;
+	cout<< "Width: " << width << endl;
+	cout<< "Row: " << row << endl;
+	cout<< "Height: " << height << endl;
+	cout << "IsSpace?" << (maze->getElement(row, col) == SPACE) << endl;
+    */
+   
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
    if (col == width && row == height && (maze->getElement(row, col) == SPACE))  
    {
@@ -110,7 +116,7 @@ void Maze::processSolution(StackLinked<Cell>* stack)
       Cell* curr_cell = stack->pop();
       
       //update the maze location to PATH
-	
+		maze->setElement(curr_cell->getRow(), curr_cell->getCol(), PATH);
 
 
 
@@ -139,8 +145,9 @@ bool Maze::traverse()
 
       //call a method in the Cell class to give you a new Cell in a new direction relative to top_cell (initially, DOWN)
       //DO THIS
-      Cell* curr_cell = 
-
+      Cell* curr_cell = top_cell->nextCell();
+      
+	  
 
 
 
@@ -151,15 +158,16 @@ bool Maze::traverse()
 
       //DO THIS
       //get the row and col from curr_cell
-      int row = 
-      int col = 
+      int row = curr_cell->getRow();
+      int col = curr_cell->getCol();
 
       //check that the current maze location corresponds to SPACE, otherwise delete it
-      if (                                           )
+      if (maze->getElement(row, col) == SPACE)
       {
          //update the maze location to TRIED
          //put the cell on the stack (move forward through the maze)
-
+		 maze->setElement(row, col, TRIED);
+		 stack.push(curr_cell);
 
 
 
@@ -173,7 +181,7 @@ bool Maze::traverse()
       {
          //DO THIS
          //delete the cell
-
+		 delete curr_cell;
 
       }
    }
@@ -181,7 +189,7 @@ bool Maze::traverse()
    //did we make it to the bottom right?
    if (done)
    {
-      processSolution(&stack);
+	  processSolution(&stack);
    }
    else
    {
