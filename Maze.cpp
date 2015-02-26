@@ -36,7 +36,7 @@ bool Maze::solve()
    return done;
 }
 
-//backing through the maze, setting the color to BACKTRACK
+//backing through the maze, setting the colour to BACKTRACK
 Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 {
    //DO THIS
@@ -54,7 +54,7 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
       //remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
       Cell* cell = stack->pop();
 	  maze->setElement(cell->getRow(), cell->getCol(), BACKTRACK );
-	  
+	  delete cell;
 
 
       //look at the next cell
@@ -77,12 +77,6 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
    int row = curr_cell->getRow();
    int col = curr_cell->getCol();
 
-	/*cout<< "Col: " << col << endl;
-	cout<< "Width: " << width << endl;
-	cout<< "Row: " << row << endl;
-	cout<< "Height: " << height << endl;
-	cout << "IsSpace?" << (maze->getElement(row, col) == SPACE) << endl;
-    */
    
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
    if (col == width && row == height && (maze->getElement(row, col) == SPACE))  
@@ -105,23 +99,23 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
    return false;
 }
 
-//backing through the maze, setting the solution color to PATH
+//backing through the maze, setting the solution colour to PATH
 void Maze::processSolution(StackLinked<Cell>* stack)
 {
    //DO THIS
    //the stack has the solution path stored
-   while(stack->size() > 0)
+   while(!stack->isEmpty())
    {
       //get the next cell from the stack
       Cell* curr_cell = stack->pop();
       
       //update the maze location to PATH
-		maze->setElement(curr_cell->getRow(), curr_cell->getCol(), PATH);
+	  maze->setElement(curr_cell->getRow(), curr_cell->getCol(), PATH);
 
 
-
+      delete curr_cell;
       gui->update();
-   }
+   }  
 }
 
 bool Maze::traverse()

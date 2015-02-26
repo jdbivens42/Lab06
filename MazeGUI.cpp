@@ -1,3 +1,4 @@
+//Joe Bivens, Trey Williams: https://github.com/jdbivens42/Lab06/
 #include "MazeGUI.h"
 #include "Matrix.h"
 
